@@ -15,6 +15,7 @@
 		E91234560006 /* FaceIDScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234550006 /* FaceIDScreen.swift */; };
 		E91234560007 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234550007 /* SettingsScreen.swift */; };
 		E91234560008 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E91234550008 /* Preview Assets.xcassets */; };
+		E91234560009 /* SplunkAgent in Frameworks */ = {isa = PBXBuildFile; productRef = E912345X0001 /* SplunkAgent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E91234560009 /* SplunkAgent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +107,9 @@
 			dependencies = (
 			);
 			name = SplunkRUMDemo;
+			packageProductDependencies = (
+				E912345X0001 /* SplunkAgent */,
+			);
 			productName = SplunkRUMDemo;
 			productReference = E91234550000 /* SplunkRUMDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -133,6 +138,9 @@
 				Base,
 			);
 			mainGroup = E912345G0001;
+			packageReferences = (
+				E912345K0001 /* XCRemoteSwiftPackageReference "splunk-otel-ios" */,
+			);
 			productRefGroup = E912345G0003 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -374,6 +382,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E912345K0001 /* XCRemoteSwiftPackageReference "splunk-otel-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/signalfx/splunk-otel-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E912345X0001 /* SplunkAgent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E912345K0001 /* XCRemoteSwiftPackageReference "splunk-otel-ios" */;
+			productName = SplunkAgent;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E912345P0001 /* Project object */;
 }
