@@ -1,4 +1,5 @@
 import SwiftUI
+import SplunkAgent
 
 struct SettingsScreen: View {
     @State private var showingCrashAlert = false
@@ -21,6 +22,44 @@ struct SettingsScreen: View {
                     Spacer()
                     Text("1")
                         .foregroundColor(.secondary)
+                }
+            }
+
+            Section("Custom Events") {
+                // Button tap event
+                Button(action: trackButtonTapEvent) {
+                    HStack {
+                        Image(systemName: "hand.tap.fill")
+                            .foregroundColor(.blue)
+                        Text("Track Button Tap")
+                    }
+                }
+
+                // Purchase event
+                Button(action: trackPurchaseEvent) {
+                    HStack {
+                        Image(systemName: "cart.fill")
+                            .foregroundColor(.green)
+                        Text("Track Purchase Event")
+                    }
+                }
+
+                // User action event
+                Button(action: trackUserActionEvent) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                            .foregroundColor(.purple)
+                        Text("Track User Action")
+                    }
+                }
+
+                // Custom workflow event
+                Button(action: trackWorkflowEvent) {
+                    HStack {
+                        Image(systemName: "arrow.triangle.branch")
+                            .foregroundColor(.orange)
+                        Text("Track Workflow Event")
+                    }
                 }
             }
 
@@ -72,7 +111,7 @@ struct SettingsScreen: View {
             }
 
             Section("Application Errors") {
-                // Throw an error (caught)
+                // Throw an error (caught) and track it
                 Button(action: triggerCaughtError) {
                     HStack {
                         Image(systemName: "exclamationmark.bubble.fill")
@@ -139,7 +178,7 @@ struct SettingsScreen: View {
                 }
             }
 
-            Section(footer: Text("Debug tools are for demonstration purposes only. Errors will be reported to Splunk RUM.")) {
+            Section(footer: Text("Debug tools are for demonstration purposes only. Events will be reported to Splunk RUM.")) {
                 EmptyView()
             }
         }
@@ -158,6 +197,64 @@ struct SettingsScreen: View {
         } message: {
             Text(statusMessage ?? "")
         }
+    }
+
+    // MARK: - Custom Events
+
+    private func trackButtonTapEvent() {
+        splunkAgent?.customTracking.trackCustomEvent(
+            "Button Tapped",
+            MutableAttributes(dictionary: [
+                "button_name": .string("demo_button"),
+                "screen": .string("settings"),
+                "timestamp": .string(ISO8601DateFormatter().string(from: Date()))
+            ])
+        )
+        statusMessage = "Custom event 'Button Tapped' sent!"
+        showingStatus = true
+    }
+
+    private func trackPurchaseEvent() {
+        splunkAgent?.customTracking.trackCustomEvent(
+            "Purchase Completed",
+            MutableAttributes(dictionary: [
+                "product_id": .string("PRD-12345"),
+                "product_name": .string("Premium Subscription"),
+                "amount": .double(9.99),
+                "currency": .string("USD"),
+                "payment_method": .string("credit_card")
+            ])
+        )
+        statusMessage = "Custom event 'Purchase Completed' sent!"
+        showingStatus = true
+    }
+
+    private func trackUserActionEvent() {
+        splunkAgent?.customTracking.trackCustomEvent(
+            "User Action",
+            MutableAttributes(dictionary: [
+                "action_type": .string("settings_viewed"),
+                "user_tier": .string("free"),
+                "session_duration_seconds": .int(120)
+            ])
+        )
+        statusMessage = "Custom event 'User Action' sent!"
+        showingStatus = true
+    }
+
+    private func trackWorkflowEvent() {
+        splunkAgent?.customTracking.trackCustomEvent(
+            "Workflow Step",
+            MutableAttributes(dictionary: [
+                "workflow.name": .string("Onboarding"),
+                "step": .string("profile_setup"),
+                "step_number": .int(2),
+                "total_steps": .int(5),
+                "completed": .bool(true)
+            ])
+        )
+        statusMessage = "Custom event 'Workflow Step' sent!"
+        showingStatus = true
     }
 
     // MARK: - Network Requests
@@ -248,7 +345,9 @@ struct SettingsScreen: View {
             throw DemoError.sampleError
         } catch {
             print("Caught error: \(error)")
-            statusMessage = "Error caught: \(error.localizedDescription)"
+            // Track error with Splunk RUM
+            splunkAgent?.customTracking.trackError(error)
+            statusMessage = "Error caught and reported: \(error.localizedDescription)"
             showingStatus = true
         }
     }

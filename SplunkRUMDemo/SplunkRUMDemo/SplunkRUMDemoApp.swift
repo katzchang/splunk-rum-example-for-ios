@@ -1,6 +1,9 @@
 import SwiftUI
 import SplunkAgent
 
+// Global access to Splunk RUM agent
+var splunkAgent: SplunkRum?
+
 @main
 struct SplunkRUMDemoApp: App {
 
@@ -26,18 +29,16 @@ struct SplunkRUMDemoApp: App {
             deploymentEnvironment: "kotani"
         )
 
-        var agent: SplunkRum?
-
         do {
-            agent = try SplunkRum.install(with: agentConfiguration)
+            splunkAgent = try SplunkRum.install(with: agentConfiguration)
         } catch {
             print("Unable to start the Splunk agent, error: \(error)")
         }
 
         // Enable automated navigation tracking
-        agent?.navigation.preferences.enableAutomatedTracking = true
+        splunkAgent?.navigation.preferences.enableAutomatedTracking = true
 
         // Start session replay
-        agent?.sessionReplay.start()
+        splunkAgent?.sessionReplay.start()
     }
 }
