@@ -25,6 +25,9 @@ struct SplunkRUMDemoApp: App {
             return
         }
 
+        let environment = (Bundle.main.object(forInfoDictionaryKey: "SplunkRUMEnvironment") as? String)
+            .flatMap { $0.isEmpty ? nil : $0 } ?? "test"
+
         let endpointConfiguration = EndpointConfiguration(
             realm: realm,
             rumAccessToken: accessToken
@@ -32,8 +35,8 @@ struct SplunkRUMDemoApp: App {
 
         let agentConfiguration = AgentConfiguration(
             endpoint: endpointConfiguration,
-            appName: "test",
-            deploymentEnvironment: "kotani"
+            appName: "SplunkRumDemo",
+            deploymentEnvironment: environment
         )
             .sessionConfiguration(SessionConfiguration(samplingRate: 0.5))
 

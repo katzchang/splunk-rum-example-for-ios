@@ -35,5 +35,7 @@
 	<string>$(SPLUNK_RUM_REALM)</string>
 	<key>SplunkRUMAccessToken</key>
 	<string>$(SPLUNK_RUM_ACCESS_TOKEN)</string>
+	<key>SplunkRUMEnvironment</key>
+	<string>$(SPLUNK_RUM_ENVIRONMENT)</string>
 </dict>
 </plist>
