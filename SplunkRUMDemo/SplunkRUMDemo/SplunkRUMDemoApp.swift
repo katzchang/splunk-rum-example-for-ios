@@ -28,6 +28,7 @@ struct SplunkRUMDemoApp: App {
             appName: "test",
             deploymentEnvironment: "kotani"
         )
+            .sessionConfiguration(SessionConfiguration(samplingRate: 0.5))
 
         do {
             splunkAgent = try SplunkRum.install(with: agentConfiguration)
