@@ -18,9 +18,16 @@ struct SplunkRUMDemoApp: App {
     }
 
     private func initializeSplunkRUM() {
+        guard let realm = Bundle.main.object(forInfoDictionaryKey: "SplunkRUMRealm") as? String,
+              let accessToken = Bundle.main.object(forInfoDictionaryKey: "SplunkRUMAccessToken") as? String,
+              !realm.isEmpty, !accessToken.isEmpty else {
+            print("Splunk RUM configuration not found. Please set up Secrets.xcconfig")
+            return
+        }
+
         let endpointConfiguration = EndpointConfiguration(
-            realm: "YOUR_REALM_HERE",
-            rumAccessToken: "YOUR_ACCESS_TOKEN_HERE"
+            realm: realm,
+            rumAccessToken: accessToken
         )
 
         let agentConfiguration = AgentConfiguration(

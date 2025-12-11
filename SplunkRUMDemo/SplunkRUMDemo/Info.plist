@@ -31,5 +31,9 @@
 	</dict>
 	<key>UILaunchScreen</key>
 	<dict/>
+	<key>SplunkRUMRealm</key>
+	<string>$(SPLUNK_RUM_REALM)</string>
+	<key>SplunkRUMAccessToken</key>
+	<string>$(SPLUNK_RUM_ACCESS_TOKEN)</string>
 </dict>
 </plist>
