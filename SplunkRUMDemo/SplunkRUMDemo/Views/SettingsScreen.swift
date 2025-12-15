@@ -164,6 +164,24 @@ struct SettingsScreen: View {
                 }
             }
 
+            Section("Log Collection") {
+                Button(action: testNSLog) {
+                    HStack {
+                        Image(systemName: "doc.text.fill")
+                            .foregroundColor(.green)
+                        Text("Test NSLog")
+                    }
+                }
+
+                Button(action: testStderrLog) {
+                    HStack {
+                        Image(systemName: "exclamationmark.bubble.fill")
+                            .foregroundColor(.red)
+                        Text("Test stderr Log")
+                    }
+                }
+            }
+
             Section("Crash (Use with Caution)") {
                 // Crash button
                 Button(action: {
@@ -398,6 +416,20 @@ struct SettingsScreen: View {
         }
 
         statusMessage = "Allocated \(largeArrays.count) large arrays"
+        showingStatus = true
+    }
+
+    // MARK: - Log Collection
+
+    private func testNSLog() {
+        NSLog("Test log message from NSLog at %@", Date() as NSDate)
+        statusMessage = "NSLog sent to Splunk!"
+        showingStatus = true
+    }
+
+    private func testStderrLog() {
+        fputs("Test error log message from stderr at \(Date())\n", stderr)
+        statusMessage = "stderr log sent to Splunk!"
         showingStatus = true
     }
 

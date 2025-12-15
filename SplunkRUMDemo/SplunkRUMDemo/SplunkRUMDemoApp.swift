@@ -38,7 +38,8 @@ struct SplunkRUMDemoApp: App {
             appName: "SplunkRumDemo",
             deploymentEnvironment: environment
         )
-            .sessionConfiguration(SessionConfiguration(samplingRate: 0.5))
+            .sessionConfiguration(SessionConfiguration(samplingRate: 1.0))
+            .enableDebugLogging(true)
 
         do {
             splunkAgent = try SplunkRum.install(with: agentConfiguration)
@@ -51,5 +52,8 @@ struct SplunkRUMDemoApp: App {
 
         // Start session replay
         splunkAgent?.sessionReplay.start()
+
+        // Start log collection
+        LogCollector.shared.start()
     }
 }

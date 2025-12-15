@@ -16,6 +16,7 @@
 		E91234560007 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91234550007 /* SettingsScreen.swift */; };
 		E91234560008 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E91234550008 /* Preview Assets.xcassets */; };
 		E91234560009 /* SplunkAgent in Frameworks */ = {isa = PBXBuildFile; productRef = E912345X0001 /* SplunkAgent */; };
+		E912345600A1 /* LogCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E912345500A1 /* LogCollector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E91234550008 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E91234550009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E912345500A0 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		E912345500A1 /* LogCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCollector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,11 +61,20 @@
 				E91234550001 /* SplunkRUMDemoApp.swift */,
 				E91234550002 /* ContentView.swift */,
 				E912345G0004 /* Views */,
+				E912345G0006 /* Utilities */,
 				E91234550003 /* Assets.xcassets */,
 				E91234550009 /* Info.plist */,
 				E912345G0005 /* Preview Content */,
 			);
 			path = SplunkRUMDemo;
+			sourceTree = "<group>";
+		};
+		E912345G0006 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E912345500A1 /* LogCollector.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		E912345G0003 /* Products */ = {
@@ -175,6 +186,7 @@
 				E91234560005 /* CameraScreen.swift in Sources */,
 				E91234560006 /* FaceIDScreen.swift in Sources */,
 				E91234560007 /* SettingsScreen.swift in Sources */,
+				E912345600A1 /* LogCollector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
