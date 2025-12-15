@@ -6,6 +6,9 @@ struct SettingsScreen: View {
     @State private var isProcessingHeavyTask = false
     @State private var statusMessage: String?
     @State private var showingStatus = false
+    @State private var bufferingEnabled = LogCollector.shared.bufferConfiguration.enabled
+    @State private var bufferSize = LogCollector.shared.bufferConfiguration.maxBufferSize
+    @State private var flushInterval = LogCollector.shared.bufferConfiguration.flushInterval
 
     var body: some View {
         List {
@@ -178,6 +181,62 @@ struct SettingsScreen: View {
                         Image(systemName: "exclamationmark.bubble.fill")
                             .foregroundColor(.red)
                         Text("Test stderr Log")
+                    }
+                }
+            }
+
+            Section("Log Buffering") {
+                Toggle("Enable Buffering", isOn: $bufferingEnabled)
+                    .onChange(of: bufferingEnabled) { newValue in
+                        LogCollector.shared.bufferConfiguration.enabled = newValue
+                    }
+
+                if bufferingEnabled {
+                    HStack {
+                        Text("Buffer Size")
+                        Spacer()
+                        Picker("", selection: $bufferSize) {
+                            Text("10").tag(10)
+                            Text("25").tag(25)
+                            Text("50").tag(50)
+                            Text("100").tag(100)
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(width: 200)
+                    }
+                    .onChange(of: bufferSize) { newValue in
+                        LogCollector.shared.bufferConfiguration.maxBufferSize = newValue
+                    }
+
+                    HStack {
+                        Text("Flush Interval")
+                        Spacer()
+                        Picker("", selection: $flushInterval) {
+                            Text("1s").tag(1.0)
+                            Text("5s").tag(5.0)
+                            Text("10s").tag(10.0)
+                            Text("30s").tag(30.0)
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(width: 200)
+                    }
+                    .onChange(of: flushInterval) { newValue in
+                        LogCollector.shared.bufferConfiguration.flushInterval = newValue
+                    }
+
+                    HStack {
+                        Text("Buffered Logs")
+                        Spacer()
+                        Text("\(LogCollector.shared.bufferedCount)")
+                            .foregroundColor(.secondary)
+                    }
+
+                    Button(action: flushLogBuffer) {
+                        HStack {
+                            Image(systemName: "arrow.up.circle.fill")
+                                .foregroundColor(.blue)
+                            Text("Flush Buffer Now")
+                        }
                     }
                 }
             }
@@ -430,6 +489,13 @@ struct SettingsScreen: View {
     private func testStderrLog() {
         fputs("Test error log message from stderr at \(Date())\n", stderr)
         statusMessage = "stderr log sent to Splunk!"
+        showingStatus = true
+    }
+
+    private func flushLogBuffer() {
+        let count = LogCollector.shared.bufferedCount
+        LogCollector.shared.flushBuffer()
+        statusMessage = "Flushed \(count) buffered log entries"
         showingStatus = true
     }
 

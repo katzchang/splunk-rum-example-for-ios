@@ -17,6 +17,8 @@
 		E91234560008 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E91234550008 /* Preview Assets.xcassets */; };
 		E91234560009 /* SplunkAgent in Frameworks */ = {isa = PBXBuildFile; productRef = E912345X0001 /* SplunkAgent */; };
 		E912345600A1 /* LogCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = E912345500A1 /* LogCollector.swift */; };
+		E912345600A2 /* FeatureFlagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E912345500A2 /* FeatureFlagManager.swift */; };
+		E912345600A3 /* FeatureFlagsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E912345500A3 /* FeatureFlagsScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		E91234550009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E912345500A0 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		E912345500A1 /* LogCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCollector.swift; sourceTree = "<group>"; };
+		E912345500A2 /* FeatureFlagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagManager.swift; sourceTree = "<group>"; };
+		E912345500A3 /* FeatureFlagsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				E912345500A1 /* LogCollector.swift */,
+				E912345500A2 /* FeatureFlagManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -92,6 +97,7 @@
 				E91234550005 /* CameraScreen.swift */,
 				E91234550006 /* FaceIDScreen.swift */,
 				E91234550007 /* SettingsScreen.swift */,
+				E912345500A3 /* FeatureFlagsScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +193,8 @@
 				E91234560006 /* FaceIDScreen.swift in Sources */,
 				E91234560007 /* SettingsScreen.swift in Sources */,
 				E912345600A1 /* LogCollector.swift in Sources */,
+				E912345600A2 /* FeatureFlagManager.swift in Sources */,
+				E912345600A3 /* FeatureFlagsScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
