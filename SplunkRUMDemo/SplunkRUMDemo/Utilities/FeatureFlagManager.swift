@@ -25,7 +25,8 @@ class FeatureFlagManager: ObservableObject {
             ("new_checkout", "New Checkout Flow", false),
             ("premium_features", "Premium Features", true),
             ("beta_ui", "Beta UI Elements", false),
-            ("analytics_v2", "Analytics V2", true)
+            ("analytics_v2", "Analytics V2", true),
+            ("log_to_splunk_hec", "Send Logs to Splunk Core (HEC)", false)
         ]
 
         for (key, description, defaultValue) in defaultFlags {
