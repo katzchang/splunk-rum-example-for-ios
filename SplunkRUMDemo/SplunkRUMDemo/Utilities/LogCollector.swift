@@ -27,6 +27,9 @@ class LogCollector {
     private let hecURL: String?
     private let hecToken: String?
 
+    /// Default log destination from Info.plist
+    private let defaultDestination: LogDestination
+
     var isHECConfigured: Bool {
         guard let url = hecURL, let token = hecToken else { return false }
         return !url.isEmpty && !token.isEmpty
@@ -45,12 +48,22 @@ class LogCollector {
         // Load HEC configuration from Info.plist
         self.hecURL = Bundle.main.object(forInfoDictionaryKey: "SplunkHECURL") as? String
         self.hecToken = Bundle.main.object(forInfoDictionaryKey: "SplunkHECToken") as? String
+
+        // Load default destination from Info.plist
+        let destString = Bundle.main.object(forInfoDictionaryKey: "SplunkLogDestination") as? String ?? "rum"
+        self.defaultDestination = (destString.lowercased() == "hec") ? .splunkHEC : .splunkRUM
     }
 
-    /// Get current log destination from feature flags
+    /// Get current log destination (feature flag overrides default if set)
     var currentDestination: LogDestination {
-        let useHEC = FeatureFlagManager.shared.isEnabled("log_to_splunk_hec")
-        return useHEC ? .splunkHEC : .splunkRUM
+        // Feature flag takes precedence if explicitly set
+        let flagManager = FeatureFlagManager.shared
+        if flagManager.flags["log_to_splunk_hec"] != nil {
+            let useHEC = flagManager.isEnabled("log_to_splunk_hec")
+            return useHEC ? .splunkHEC : .splunkRUM
+        }
+        // Otherwise use default from xcconfig
+        return defaultDestination
     }
 
     func start() {

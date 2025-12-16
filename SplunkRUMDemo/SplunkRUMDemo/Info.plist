@@ -41,5 +41,7 @@
 	<string>$(SPLUNK_HEC_URL)</string>
 	<key>SplunkHECToken</key>
 	<string>$(SPLUNK_HEC_TOKEN)</string>
+	<key>SplunkLogDestination</key>
+	<string>$(SPLUNK_LOG_DESTINATION)</string>
 </dict>
 </plist>
