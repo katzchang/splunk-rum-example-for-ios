@@ -20,12 +20,6 @@ struct ContentView: View {
                         }
                     }
 
-                    Section("Configuration") {
-                        NavigationLink(destination: FeatureFlagsScreen()) {
-                            Label("Feature Flags", systemImage: "flag.fill")
-                        }
-                    }
-
                     Section("Settings") {
                         NavigationLink(destination: SettingsScreen()) {
                             Label("Settings & Debug", systemImage: "gear")
